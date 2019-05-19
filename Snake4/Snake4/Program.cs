@@ -19,6 +19,8 @@ namespace Snake4
             HorizontalLine line = new HorizontalLine(5, 10, 8, '+');
             line.Drow();
 
+            VertikalLine line1 = new VertikalLine(10, 15, 21, '-');
+            line1.Drow();
             Console.ReadLine();
         }
     }
