@@ -11,23 +11,18 @@ namespace Snake4
     {
         static void Main(string[] args)
         {
+
             Console.SetBufferSize(120, 30);
             Console.CursorVisible = false;
 
-            // Отрисовка рамки
-            HorizontalLine upLine = new HorizontalLine(0, 78, 0, '+');
-            HorizontalLine downLine = new HorizontalLine(0, 78, 24, '+');
-            VertikalLine leftLine = new VertikalLine(0, 24, 0, '+');
-            VertikalLine rightLine = new VertikalLine(0, 24, 78, '+');
-            upLine.Drow();
-            downLine.Drow();
-            leftLine.Drow();
-            rightLine.Drow();
+            Walls walls = new Walls(80, 25);
+            walls.Draw();
+            
 
             // Отрисовка точек
             Point p = new Point(4, 5, '*');
             Snake snake = new Snake(p, 4, Direction.RIGHT);
-            snake.Drow();
+            snake.Draw();
 
             FoodCreator FoodCreator = new FoodCreator(80, 25, '$');
             Point food = FoodCreator.CreateFood();
@@ -35,7 +30,11 @@ namespace Snake4
 
             while(true)
             {
-                if(snake.Eat(food))
+                if (walls.isHit(snake)|| snake.IsHitTail())
+                {
+                    break;
+                }
+                if (snake.Eat(food))
                 {
                     food = FoodCreator.CreateFood();
                     food.Draw();
@@ -52,9 +51,11 @@ namespace Snake4
                     snake.HandleKey(key.Key);
                 }
                 /*Thread.Sleep(100);
-                snake.Move();*/
-            }
+                snake.Move();
+            }*/
             //Console.ReadLine();
+            
+            }
         }
     }
 }
